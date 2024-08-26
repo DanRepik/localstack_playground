@@ -12,6 +12,16 @@ By default, the selected databases are initialized with the Chinook sample datab
 source devtools.sh
 ```
 
+You can incorporate 'devtools.sh' into your own dev process to allow further customizations if needed.  For example
+
+```
+source "$(dirname "$0")/../../../localstack_playground/devtools.sh"
+
+alias dev_up="playground_postgres; ./install_secrets.py"
+alias dev_down="playground_down"
+alias dev_reset="playground_reset"
+```
+
 ## Starting the Playground
 
 To start the playground with LocalStack and all the databases, run:
@@ -50,16 +60,25 @@ Resetting the playground stops all containers and removes the database volumes. 
 playground_reset
 ```
 
-## Accessing Playground Databases
+## Accessing Playground Resources
+
+Localstack services are usually available at the endpoint;
+
+```
+https://localhost.localstack.cloud:4566
+```
 
 Here are the connection parameters to access the playgrounds databases;
 
-| Parameter | Postgres               | Oracle    | MySQL   |
-|-----------|------------------------|-----------|---------|
-| Database  | chinook_auto_increment | XEPDB1    | chinook |
-| Username  | chinook_user           | system    | root    |
-| Password  | chinook_password       | system    | mysql   |
-| Host      | postgres_db            | oracle_db | mysql+db |
+| Parameter | Postgres               | Oracle    | MySQL    |
+|-----------|------------------------|-----------|----------|
+| Database  | chinook_auto_increment | XEPDB1    | chinook  |
+| Username  | chinook_user           | system    | root     |
+| Password  | chinook_password       | system    | mysql    |
+| Host      | postgres_db            | oracle_db | mysql_db |
+| Port      | 5432                   | 1521      | 3306     |
+
+> Host names apply only to network access within Localstack
 
 ## Configuration
 
