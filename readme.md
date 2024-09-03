@@ -1,99 +1,112 @@
-# LocalStack Playground
+# Localstack Playground
 
-The LocalStack Playground is a Docker Compose setup that provisions LocalStack alongside optional databases (Postgres, Oracle, MySQL) in Docker containers. It creates a local environment for testing and deploying AWS cloud-based applications that access relational databases (RDBMS).
+Localstack Playground is a Docker-based development environment designed for setting up and testing AWS services using LocalStack, with support for various RDBMS databases (Postgres, Oracle, MySQL). This environment facilitates local development and testing of cloud-based applications without the need to deploy to an actual AWS environment.
 
-By default, the selected databases are initialized with the Chinook sample database. However, you can customize the initialization using environment variables to point to a folder containing your own scripts.
+## Features
 
-## devtools.sh
+- **LocalStack Integration**: Simulates AWS cloud services locally, including S3, DynamoDB, and Lambda.
+- **Database Support**: Includes containers for Postgres, Oracle, and MySQL, pre-configured with initialization scripts.
+- **Flexible Setup**: Allows developers to start and stop individual services as needed.
+- **Volume Management**: Automatically manages Docker volumes for database persistence.
 
-`devtools.sh` defines aliases for common operations involving the playground. To install the aliases, run:
+## Prerequisites
 
-```bash
-source devtools.sh
-```
+- **Docker**: Ensure Docker is installed and running on your machine.
+- **Python 3.9+**: Required for running the provided management scripts.
 
-You can incorporate 'devtools.sh' into your own dev process to allow further customizations if needed.  For example
+## Installation
 
-```
-source "$(dirname "$0")/../../../localstack_playground/devtools.sh"
+1. **Install Localstack Playground from PyPI**:
+    ```bash
+    pip install localstack-playground
+    ```
 
-alias dev_up="playground_postgres; ./install_secrets.py"
-alias dev_down="playground_down"
-alias dev_reset="playground_reset"
-```
+2. **Set Up a Virtual Environment** (optional but recommended):
+    ```bash
+    python3 -m venv venv
+    source venv/bin/activate
+    ```
 
-## Starting the Playground
+## Usage
 
-To start the playground with LocalStack and all the databases, run:
+The project provides a `playground` command-line tool to manage the Localstack Playground environment. The tool supports multiple subcommands to control various services.
 
-```bash
-playground_up
-```
+### Starting All Services
 
-To start only LocalStack:
-
-```bash
-playground_localstack
-```
-
-To start individual databases:
+To start Localstack and all the database services:
 
 ```bash
-playground_postgres
-playground_oracle
-playground_mysql
+playground up
 ```
 
-## Stopping the Playground
+### Stopping All Services
 
-To stop all containers but retain the database volumes, run:
+To stop all services:
 
 ```bash
-playground_down
+playground down
 ```
 
-## Resetting the Playground
+### Resetting the Environment
 
-Resetting the playground stops all containers and removes the database volumes. After a reset, databases will reinitialize on the next start.
+To stop all services and remove the database volumes:
 
 ```bash
-playground_reset
+playground reset
 ```
 
-## Accessing Playground Resources
+### Starting Individual Services
 
-Localstack services are usually available at the endpoint;
+You can start individual services like Localstack, Postgres, Oracle, or MySQL.
 
-```
-https://localhost.localstack.cloud:4566
-```
+- **Start Localstack**:
+    ```bash
+    playground localstack
+    ```
 
-Here are the connection parameters to access the playgrounds databases;
+- **Start Postgres**:
+    ```bash
+    playground postgres --init-scripts /path/to/init/scripts
+    ```
 
-| Parameter | Postgres               | Oracle    | MySQL    |
-|-----------|------------------------|-----------|----------|
-| Database  | chinook_auto_increment | XEPDB1    | chinook  |
-| Username  | chinook_user           | system    | root     |
-| Password  | chinook_password       | system    | mysql    |
-| Host      | postgres_db            | oracle_db | mysql_db |
-| Port      | 5432                   | 1521      | 3306     |
+- **Start Oracle**:
+    ```bash
+    playground oracle --init-scripts /path/to/init/scripts
+    ```
 
-> Host names apply only to network access within Localstack
+- **Start MySQL**:
+    ```bash
+    playground mysql --init-scripts /path/to/init/scripts
+    ```
 
 ## Configuration
 
-By default, the playground initializes databases using the provided data set. You can override this by setting the following environment variables to point to a custom folder:
 
-- `POSTGRES_INIT_DB`
-- `ORACLE_INIT_DB`
-- `MYSQL_INIT_DB`
 
-For example, to use a custom folder for Postgres initialization:
+## Development
+
+### Running Tests
+
+You can run tests using `pytest`:
 
 ```bash
-POSTGRES_INIT_DB=./my_postgres_db playground_postgres
+pytest tests
 ```
 
---- 
+### Contributing
 
-This version is more concise and structured, with consistent terminology and formatting.
+Contributions are welcome! Please submit a pull request or open an issue to discuss your ideas.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+## Contact
+
+For any questions or suggestions, feel free to contact the author:
+
+- **Author**: Daniel Repik
+- **Email**: danrepik@icloud.com
+```
+
+This version of the `README.md` now includes instructions for installing the `localstack-playground` package directly from PyPI, making it easier for users to get started.
