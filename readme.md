@@ -29,59 +29,33 @@ Localstack Playground is a Docker-based development environment designed for set
 
 ## Usage
 
-The project provides a `playground` command-line tool to manage the Localstack Playground environment. The tool supports multiple subcommands to control various services.
+The project provides a `playground` command-line tool to manage the Localstack Playground environment.
 
-### Starting All Services
-
-To start Localstack and all the database services:
-
-```bash
-playground up
 ```
+usage: playground [-h] {up,down,reset,localstack,postgres,oracle,mysql} ...
 
-### Stopping All Services
+Manage the Localstack Playground
 
-To stop all services:
+positional arguments:
+  {up,down,reset,localstack,postgres,oracle,mysql}
+                        Subcommand to run
+    up                  Start Localstack and all databases
+    down                Stop all playground services
+    reset               Reset the playground (stop services and remove volumes)
+    localstack          Start only Localstack
+    postgres            Start Localstack and the PostgreSQL database
+    oracle              Start Localstack and the Oracle database
+    mysql               Start MySQL service only
 
-```bash
-playground down
-```
-
-### Resetting the Environment
-
-To stop all services and remove the database volumes:
-
-```bash
-playground reset
-```
-
-### Starting Individual Services
-
-You can start individual services like Localstack, Postgres, Oracle, or MySQL.
-
-- **Start Localstack**:
-    ```bash
-    playground localstack
-    ```
-
-- **Start Postgres**:
-    ```bash
-    playground postgres
-    ```
-
-- **Start Oracle**:
-    ```bash
-    playground oracle
-    ```
-
-- **Start MySQL**:
-    ```bash
-    playground mysql
-    ```
+options:
+  -h, --help            show this help message and exit
+  ```
 
 ## Configuration
 
-Localstack Playground allows you to use custom database initialization scripts by setting environment variables. These variables point to the folder containing the SQL scripts that will be run when the databases are started. If not provided, the playground will use default initialization scripts.
+By default when starting any of the database engine localstack-playground loads scripts from [Chinook Database](https://github.com/lerocha/chinook-database_) and open source database. 
+
+Localstack Playground allows you to override that behavior and use your own custom database initialization scripts.  This is done by setting environment variables. These variables point to paths containing the SQL scripts that will be run when the databases first started. 
 
 ### Environment Variables
 
@@ -123,5 +97,3 @@ For any questions or suggestions, feel free to contact the author:
 - **Author**: Daniel Repik
 - **Email**: danrepik@icloud.com
 ```
-
-This version of the `README.md` now includes instructions for installing the `localstack-playground` package directly from PyPI, making it easier for users to get started.
