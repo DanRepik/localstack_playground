@@ -30,7 +30,7 @@ services:
     ports:
       - 5432:5432
     volumes:
-      - "${POSTGRES_INIT_DB:-./postgres}:/docker-entrypoint-initdb.d"
+      - "${POSTGRES_INIT_FOLDER:-./postgres}:/docker-entrypoint-initdb.d"
       - postgres_data:/var/lib/postgresql/data
     profiles:
       - postgres
@@ -43,7 +43,7 @@ services:
     restart: always
     volumes:
       - oracle_data:/opt/oracle/oradata
-      - "${ORACLE_INIT_DB:-./oracle}:/docker-entrypoint-initdb.d"
+      - "${ORACLE_INIT_FOLDER:-./oracle}:/docker-entrypoint-initdb.d"
     environment:
       ORACLE_PWD: oracle
     ports:
@@ -66,7 +66,7 @@ services:
       - '3306:3306'
     volumes:
       - mysql_data:/var/lib/mysql
-      - "${MYSQL_INIT_DB:-./mysql}:/docker-entrypoint-initdb.d"
+      - "${MYSQL_INIT_FOLDER:-./mysql}:/docker-entrypoint-initdb.d"
     profiles:
       - mysql
       - all

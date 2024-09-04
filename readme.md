@@ -66,22 +66,37 @@ You can start individual services like Localstack, Postgres, Oracle, or MySQL.
 
 - **Start Postgres**:
     ```bash
-    playground postgres --init-scripts /path/to/init/scripts
+    playground postgres
     ```
 
 - **Start Oracle**:
     ```bash
-    playground oracle --init-scripts /path/to/init/scripts
+    playground oracle
     ```
 
 - **Start MySQL**:
     ```bash
-    playground mysql --init-scripts /path/to/init/scripts
+    playground mysql
     ```
 
 ## Configuration
 
+Localstack Playground allows you to use custom database initialization scripts by setting environment variables. These variables point to the folder containing the SQL scripts that will be run when the databases are started. If not provided, the playground will use default initialization scripts.
 
+### Environment Variables
+
+- **POSTGRES_INIT_PATH**: Path to the folder containing PostgreSQL initialization scripts.
+- **ORACLE_INIT_PATH**: Path to the folder containing Oracle initialization scripts.
+- **MYSQL_INIT_PATH**: Path to the folder containing MySQL initialization scripts.
+
+For example, to use your custom Postgres initialization scripts, you can set the environment variable before running the command:
+
+```bash
+export POSTGRES_INIT_PATH=/path/to/postgres/scripts
+playground postgres
+```
+
+If these environment variables are not set, the default scripts included with the playground will be used.
 
 ## Development
 
@@ -99,7 +114,7 @@ Contributions are welcome! Please submit a pull request or open an issue to disc
 
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+This project is licensed under the Apache License. See the [LICENSE](LICENSE) file for details.
 
 ## Contact
 
