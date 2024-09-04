@@ -74,7 +74,10 @@ services:
 volumes:
   mysql_data:
     driver: local
+    name: localstack_playground_mysql
   postgres_data:
     driver: local
+    name: localstack_playground_postgres
   oracle_data:
     driver: local
+    name: localstack_playground_oracle

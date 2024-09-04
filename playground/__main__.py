@@ -29,7 +29,7 @@ def playground_reset():
     playground_down()
     try:
         run_command(
-            "docker volume rm dev_playground_postgres_data dev_playground_oracle_data dev_playground_mysql_data"
+            "docker volume rm localstack_playground_postgres localstack_playground_oracle localstack_playground_mysql"
         )
     except subprocess.CalledProcessError:
         pass

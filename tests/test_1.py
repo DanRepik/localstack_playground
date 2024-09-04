@@ -2,7 +2,7 @@
 
 import unittest
 from unittest.mock import patch
-from playground.playground import playground_up
+from playground.__main__ import playground_up
 
 class TestPlaygroundCommands(unittest.TestCase):
 
