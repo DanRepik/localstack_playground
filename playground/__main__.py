@@ -37,7 +37,8 @@ def playground_reset():
 
 def playground_localstack():
     compose_file = get_resource_path("playground_compose.yaml")
-    run_command(f"docker-compose --profile localstack -f {compose_file} up -d")
+    print( f"compose file: {compose_file}")
+    run_command(f"docker-compose -p localstack-playground --profile localstack -f {compose_file} up -d")
 
 
 def playground_postgres():
@@ -47,7 +48,9 @@ def playground_postgres():
         or get_resource_path("init_scripts/postgres")
     )
     run_command(
-        f"POSTGRES_INIT_FOLDER={init_script_path} docker-compose --profile postgres -f {compose_file} up -d"
+        f"POSTGRES_INIT_FOLDER={init_script_path} "
+        + "docker-compose -p localstack-playground "
+        + f"--profile postgres -f {compose_file} up -d"
     )
 
 
@@ -58,7 +61,9 @@ def playground_oracle():
         or get_resource_path("init_scripts/oracle")
     )
     run_command(
-        f"docker-compose --profile oracle -f {compose_file} up -d -v {init_script_path}:/docker-entrypoint-initdb.d"
+        f"ORACLE_INIT_FOLDER={init_script_path} "
+        + "docker-compose -p localstack-playground "
+        + "--profile oracle -f {compose_file} up -d"
     )
 
 
@@ -69,7 +74,9 @@ def playground_mysql():
         or get_resource_path("init_scripts/mysql")
     )
     run_command(
-        f"docker-compose --profile mysql -f {compose_file} up -d -v {init_script_path}:/docker-entrypoint-initdb.d"
+        f"MYSQL_INIT_FOLDER={init_script_path} "
+        + "docker-compose -p localstack-playground "
+        + "--profile mysql -f {compose_file} up -d"
     )
 
 
